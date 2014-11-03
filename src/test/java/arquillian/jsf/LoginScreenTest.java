@@ -25,7 +25,7 @@ public class LoginScreenTest {
 	@Deployment(testable=false)
 	public static WebArchive create(){
 		return ShrinkWrap.create(WebArchive.class)
-				.addAsWebResource(new File("src/main/webapp","login.html"))
+				.addAsWebResource(new File("src/main/webapp","login.xhtml"))
 				.addAsWebInfResource(new StringAsset("<faces-config version=\"2.0\"/>"), "faces-config.xml");
 	}
 	
@@ -51,14 +51,15 @@ public class LoginScreenTest {
 		//Describe what is "object page" pattern
 		//Browser nullpointer - add Arquillian tests runner.Add arquillian dependency.
 		//deploy package.
-		browser.get(deploymentUrl.toExternalForm()+"login.html");
+		browser.get(deploymentUrl.toExternalForm()+"login.xhtml");
 		
 		assertNotNull("UserName field should be provided.", userName);
 		userName.sendKeys("demo");
 		
 		assertNotNull("Password field should be provided.", password);
 		password.sendKeys("demo");
-		/*Graphene.guardHttp(loginButton).click();
-		assertEquals("Welcom text should be present.","Welcome",facesMessage.getText().trim());*/
+		
+		Graphene.guardHttp(loginButton).click();
+		assertEquals("Welcom text should be present.","Welcome",facesMessage.getText().trim());
 	}
 }
