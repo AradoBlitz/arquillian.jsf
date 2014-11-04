@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
  	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -9,13 +8,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h:messages/>
-	<h:form id="loginForm" prependIds="false">
-	  <h:panelGrid columns="2">
+	
+	<h:form id="loginForm" prependId="false">
+	 
 	  <h:inputText id="userName"/>
 	  <h:inputSecret id="password"/>
 	  <h:commandButton id="login" action="#{loginController.login}"/>
-	  </h:panelGrid>
+	
 	</h:form>
 </body>
 </html>
