@@ -11,6 +11,7 @@ import org.jboss.arquillian.graphene.Graphene;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
@@ -25,13 +26,15 @@ public class LoginScreenTest {
 	@Deployment(testable=false)
 	public static WebArchive create(){
 		return ShrinkWrap.create(WebArchive.class)
+				.addClasses(LoginController.class)
 				.addAsWebResource(new File("src/main/webapp","login.xhtml"))
+				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
 				.addAsWebInfResource(new StringAsset("<faces-config version=\"2.0\"/>"), "faces-config.xml");
 	}
 	
 	private WebElement facesMessage;
 	
-
+	@FindBy(id="login")
 	private WebElement loginButton;
 	
 	@FindBy
@@ -51,7 +54,7 @@ public class LoginScreenTest {
 		//Describe what is "object page" pattern
 		//Browser nullpointer - add Arquillian tests runner.Add arquillian dependency.
 		//deploy package.
-		browser.get(deploymentUrl.toExternalForm()+"login.xhtml");
+		browser.get(deploymentUrl.toExternalForm()+"login.jsf");
 		
 		assertNotNull("UserName field should be provided.", userName);
 		userName.sendKeys("demo");
